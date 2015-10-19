@@ -24,6 +24,7 @@
 #   <% end %>#
 #
 module Bootstrap::DropdownHelper
+  include ActionView::Helpers::SanitizeHelper
   
   # Returns a drop-down menu of links
   #
@@ -97,7 +98,7 @@ module Bootstrap::DropdownHelper
   
   def nav_dropdown_link(text)
     content_tag(:a, class: "dropdown-toggle", data: {toggle: "dropdown"}, href: "#") do
-      safe_join( [ h(text), caret ], ' ' )
+      safe_join( [ sanitize(text), caret ], ' ' )
     end    
   end
 
@@ -105,7 +106,7 @@ module Bootstrap::DropdownHelper
     text = args.shift
     classes = %w(btn dropdown-toggle) + args.map { |e| "btn-#{e}" }
     content_tag(:a, class: classes, data: {toggle: "dropdown"}, href: "#") do
-      safe_join( [ h(text), caret ], ' ' )
+      safe_join( [ sanitize(text), caret ], ' ' )
     end
   end
   

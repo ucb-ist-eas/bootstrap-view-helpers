@@ -1,6 +1,7 @@
 # @private
 class Bootstrap::IconRenderer
   ArgumentError = Class.new(StandardError)
+  include ActionView::Helpers::SanitizeHelper
   
   delegate :canonicalize_options, :content_tag, :ensure_class, :h, to: :template
   attr_accessor :template, :options, :args, :text
@@ -51,7 +52,7 @@ class Bootstrap::IconRenderer
     self.text = if args.size == 0
       nil
     elsif args.size == 1
-      h(" #{args.first}")
+      sanitize(" #{args.first}")
     else
       raise ArgumentError, 'too many arguments'
     end 

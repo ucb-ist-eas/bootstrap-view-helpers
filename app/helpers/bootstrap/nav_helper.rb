@@ -29,7 +29,7 @@
 #     <%= dropdown_item('Labels', 'butons')%>
 #   <% end %>
 module Bootstrap::NavHelper
-  
+  include ActionView::Helpers::SanitizeHelper
   # Returns a Bootstrap navigation bar
   # @yield yield block usually consists of other {Bootstrap::NavHelper} helpers
   # @yieldreturn the contents of the navigation bar
@@ -156,7 +156,7 @@ module Bootstrap::NavHelper
 
     unless options.delete(:pad) == false
       padding = ("&nbsp;" * 3).html_safe
-      text = padding + h(text) + padding
+      text = padding + sanitize(text) + padding
     end
     
     pull_class = (options.delete(:pull).to_s == 'right' ? 'pull-right' : 'pull-left')

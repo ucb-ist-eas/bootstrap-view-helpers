@@ -87,7 +87,12 @@ module Bootstrap::FormHelper
     end
     options = ensure_class(options, button_classes)
 
-    options[:disable_with] = "Processing ..." unless options.has_key?(:disable_with)
+    disable_or_remove = options[:data] && options[:data].delete(:disable_with)
+
+    unless disable_or_remove === false
+      options[:data] ||= {}
+      options[:data][:disable_with] = disable_or_remove || "Processing ..."
+    end
 
     submit_tag(value, options)
   end

@@ -8,6 +8,7 @@ Spork.prefork do
   require File.expand_path("../dummy/config/environment", __FILE__)
   require 'rspec/rails'
   require 'rspec/autorun'
+  require 'pry'
 
   require 'coveralls'
   Coveralls.wear!
@@ -22,6 +23,8 @@ Spork.prefork do
     config.treat_symbols_as_metadata_keys_with_true_values = true
     config.filter_run focus: true
     config.run_all_when_everything_filtered = true
+
+    config.infer_spec_type_from_file_location!
   end
 end
 

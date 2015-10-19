@@ -68,7 +68,7 @@ describe Bootstrap::FormHelper do
     end
     
     it "override disable_with" do
-      submit_button_tag('Save', disable_with: 'my disable').should have_tag(:input,
+      submit_button_tag('Save', data: { disable_with: 'my disable' }).should have_tag(:input,
       type: 'submit',
       name: 'commit',
       value: 'Save',
@@ -78,7 +78,7 @@ describe Bootstrap::FormHelper do
     end
     
     it "turn off disable_with" do
-      submit_button_tag('Save', disable_with: false).find('input')[:"data-disable-with"].should be_blank
+      submit_button_tag('Save', data: { disable_with: false }).find('input')[:"data-disable-with"].should be_blank
     end
     
     it "options" do

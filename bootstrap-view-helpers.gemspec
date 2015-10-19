@@ -20,13 +20,14 @@ Gem::Specification.new do |s|
   s.add_dependency "rails"
   s.add_dependency "jquery-rails"
   
-  s.add_development_dependency 'sass-rails', '~> 3.2'
-  s.add_development_dependency 'bootstrap-sass', '~> 2.3.1.0'
+  s.add_development_dependency 'sass-rails', '~> 5.0.4'
+  s.add_development_dependency 'bootstrap-sass', '~> 3.3.5'
   s.add_development_dependency "rspec-rails"
   s.add_development_dependency "capybara"
   s.add_development_dependency "guard-rspec"
   s.add_development_dependency "guard-spork"
   s.add_development_dependency 'coveralls'
+  s.add_development_dependency 'pry'
   
   if s.platform == 'java'
     s.add_development_dependency 'activerecord-jdbcsqlite3-adapter'
