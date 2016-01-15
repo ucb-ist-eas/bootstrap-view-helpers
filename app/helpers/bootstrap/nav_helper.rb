@@ -56,7 +56,11 @@ module Bootstrap::NavHelper
 
     with_environment = options.delete(:with_environment)
     if with_environment && Rails.env != 'production'
-      text = "#{text} - #{Rails.env}"
+      if text.present?
+        text = "#{text} - #{Rails.env}"
+      else
+        text = Rails.env
+      end
       options = ensure_class(options, "rails-#{Rails.env}") 
     end
 
