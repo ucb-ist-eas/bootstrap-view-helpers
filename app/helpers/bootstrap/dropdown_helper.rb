@@ -35,7 +35,7 @@ module Bootstrap::DropdownHelper
   # @return [String] '<li class='dropdown'><ul class='dropdown-menu'> with contents of yielded block
   def nav_dropdown(text, options={})
     options = canonicalize_options(options)
-    options = ensure_class(options, 'dropdown')
+    options = ensure_class(options, 'nav-item dropdown')
     
     content_tag(:li, options) do
       nav_dropdown_link(text) + dropdown_ul { yield }
@@ -83,6 +83,8 @@ module Bootstrap::DropdownHelper
     text = args.shift or raise "Need text to link to"
     url = args.shift || 'javascript:void(0)'
     
+    options = ensure_class(options, 'dropdown')
+
     content_tag(:li) do
       link_to(text, url, options)
     end
@@ -97,7 +99,7 @@ module Bootstrap::DropdownHelper
   private
   
   def nav_dropdown_link(text)
-    content_tag(:a, class: "dropdown-toggle", data: {toggle: "dropdown"}, href: "#") do
+    content_tag(:a, class: "nav-link dropdown-toggle", data: {toggle: "dropdown"}, href: "#") do
       safe_join( [ sanitize(text), caret ], ' ' )
     end    
   end

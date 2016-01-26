@@ -2,20 +2,24 @@
 
   <%= brand('Bootstrap View Helpers', url: bvh_path) %>
 
-  <%= nav_bar_links do %>
-    <%= nav_bar_link('Application Home', bvh_app_home_link) %>
-    <%= nav_bar_link('Active', '#', active: true) %>
-    <%= nav_bar_link('Link 1', '#') %>
-    <%= nav_bar_divider %>
-    <%= nav_bar_link('Link 2', '#') %>
-  <% end %>
-  
-  <%= nav_bar_links(pull: 'right') do %>
-    <%= nav_dropdown('Dropdown 1') do %>
-      <%= dropdown_item('One', '#') %>
+  <%= nav_bar_wrapper do %>
+    <%= nav_bar_links do %>
+      <%= nav_bar_link('Application Home', bvh_app_home_link) %>
+      <%= nav_bar_link('Active', '#', active: true) %>
+      <%= nav_bar_link('Link 1', '#') %>
+      <%= nav_bar_divider %>
+      <%= nav_bar_link('Link 2', '#') %>
+      <%= nav_dropdown('Dropdown A') do %>
+        <%= dropdown_item('Bee', '#') %>
+      <% end %>
     <% end %>
+    
+    <%= nav_bar_links(pull: 'right') do %>
+      <%= nav_dropdown('Dropdown 1') do %>
+        <%= dropdown_item('One', '#') %>
+      <% end %>
+    <% end %>
+    
+    <%= nav_bar_text("Logged in as admin", pull: 'right') %>
   <% end %>
-  
-  <%= nav_bar_text("Logged in as admin", pull: 'right') %>
-
 <% end %>

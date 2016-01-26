@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   s.add_dependency "jquery-rails"
   
   s.add_development_dependency 'sass-rails', '~> 5.0.4'
-  s.add_development_dependency 'bootstrap-sass', '~> 3.3.5'
+  s.add_dependency 'bootstrap-sass', '~> 3.3.6'
   s.add_development_dependency "rspec-rails"
   s.add_development_dependency "capybara"
   s.add_development_dependency "guard-rspec"

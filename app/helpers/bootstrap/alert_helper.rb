@@ -19,8 +19,9 @@
 module Bootstrap::AlertHelper
   InvalidAlertTypeError = Class.new(StandardError)
   
-  ALERT_ATTRIBUTES = %w(error success info block)
-  
+  ALERT_ATTRIBUTES = %w(default success info warning danger)
+  COMPILED_ALERT_CLASSES = ALERT_ATTRIBUTES.map{|a| "alert-#{a}"}
+
   # @overload alert(text, alert_type, options={})
   #   @param text [String] text of the label
   #   @param alert_type [Symbol, String] if present must be one of {Bootstrap::AlertHelper::ALERT_ATTRIBUTES}
@@ -35,6 +36,7 @@ module Bootstrap::AlertHelper
     options = add_alert_classes(options, args)
     heading = options.delete(:heading)
     show_close = options.delete(:close) != false 
+    options = ensure_class(options, 'alert-dismissible') if show_close
     
     content_tag(:div, options) do
       alert_close(show_close) + 
@@ -48,7 +50,7 @@ module Bootstrap::AlertHelper
   # @return [String] html for alert close button unless _show_ is +false+
   def alert_close(show=true)
     return '' unless show
-    content_tag(:button, '&times;'.html_safe, class: 'close', data: {dismiss: 'alert'})
+    content_tag(:button, '&times;'.html_safe, class: 'close', data: {dismiss: 'alert'}, aria: {label: "Close"})
   end
 
   # Return an alert heading
@@ -72,6 +74,7 @@ module Bootstrap::AlertHelper
   def add_alert_classes(options, alert_attributes)
     validate_alert_attributes(alert_attributes)
     classes = ['alert'] + alert_attributes.map { |e| "alert-#{e}" }
+    classes << "alert-default" if is_default?(classes, options, alert_attributes)
     ensure_class(options, classes)
   end
   
@@ -79,5 +82,9 @@ module Bootstrap::AlertHelper
     alert_attributes.each { |e| raise(InvalidAlertTypeError, e.inspect) unless ALERT_ATTRIBUTES.include?(e.to_s) }
   end
   
+  def is_default?(classes, options, alert_attributes)
+    classes == ['alert'] &&
+     !options[:class].any?{|c| COMPILED_ALERT_CLASSES.include?(c)}
+  end
   
 end

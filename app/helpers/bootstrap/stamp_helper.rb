@@ -11,7 +11,7 @@
 module Bootstrap::StampHelper
   InvalidStampTypeError = Class.new(StandardError)
   
-  LABEL_TYPES = %w(default success warning important info inverse)
+  LABEL_TYPES = %w(default primary success info warning danger)
 
   #=> see {Bootstrap::StampHelper::LABEL_TYPES}
 
@@ -39,6 +39,7 @@ module Bootstrap::StampHelper
     options = canonicalize_options(args.extract_options!)
     validate_label_types(args)
     classes = ['label'] + args.map { |arg| "label-#{arg}" }
+    classes << 'label-default' if classes == ['label']
     ensure_class(options, classes)
   end
   

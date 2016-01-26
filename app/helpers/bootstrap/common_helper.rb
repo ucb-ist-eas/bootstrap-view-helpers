@@ -58,7 +58,7 @@ module Bootstrap::CommonHelper
   # @param [String, Array] klasses one or more classes to add to the +:class+ key of _hash_
   # @return [Hash]
   def ensure_class(hash, klasses)
-    canonicalize_options(hash)
+    hash = canonicalize_options(hash)
     
     hash.dup.tap do |h|
       Array(klasses).map(&:to_s).each do |k|

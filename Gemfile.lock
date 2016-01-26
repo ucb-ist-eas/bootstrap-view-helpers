@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    bootstrap-view-helpers (0.0.13)
+    bootstrap-view-helpers (0.0.14)
       jquery-rails
       rails
 
@@ -44,12 +44,12 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     arel (6.0.3)
-    autoprefixer-rails (6.0.3)
+    autoprefixer-rails (6.3.1)
       execjs
       json
-    bootstrap-sass (3.3.5.1)
-      autoprefixer-rails (>= 5.0.0.1)
-      sass (>= 3.3.0)
+    bootstrap (4.0.0.alpha3)
+      autoprefixer-rails (>= 6.0.3)
+      sass (>= 3.4.19)
     builder (3.2.2)
     capybara (2.5.0)
       mime-types (>= 1.16)
@@ -222,7 +222,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bootstrap-sass (~> 3.3.5)
+  bootstrap (~> 4.0.0.alpha3)
   bootstrap-view-helpers!
   capybara
   coveralls
@@ -233,6 +233,3 @@ DEPENDENCIES
   rspec-rails
   sass-rails (~> 5.0.4)
   sqlite3
-
-BUNDLED WITH
-   1.10.6

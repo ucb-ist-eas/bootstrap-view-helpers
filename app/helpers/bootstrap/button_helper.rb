@@ -44,7 +44,7 @@ module Bootstrap::ButtonHelper
 
   BUTTON_TYPES = %w(default primary info success warning danger inverse link)
   BUTTON_SIZES = %w(default large small mini)
-  BUTTON_OTHERS = %w(block)
+  BUTTON_OTHERS = %w()
   
   BUTTON_ALL = BUTTON_TYPES + BUTTON_SIZES + BUTTON_OTHERS
   
@@ -76,11 +76,13 @@ module Bootstrap::ButtonHelper
   #   @option options [String] :url if present, return a <a> styled as a button
   # @return [String] Html for a <button> (or <a> if +url+ option passed in)
   def button(*args)
-    text = args.shift
     options = canonicalize_options(args.extract_options!)
+    text = args.shift
     href = options.delete(:url)
     options = add_button_classes(options, args)
 
+    text = yield if block_given?
+    
     if href.present?
       link_to(text, href, options)
     else
@@ -132,8 +134,22 @@ module Bootstrap::ButtonHelper
   
   def add_button_classes(options, button_types_and_sizes)
     validate_button_types_and_sizes(button_types_and_sizes)
+    map_button_types_and_sizes(button_types_and_sizes)
     classes = ['btn'] + button_types_and_sizes.map { |e| "btn-#{e}" }
+    classes << 'btn-default' if classes == ['btn']
     ensure_class(options, classes)
+  end
+
+  BUTTON_TYPES_AND_SIZES_MAP = {
+    :default => :default,
+    :mini => :xs,
+    :small => :sm,
+    :large => :lg
+  }
+  def map_button_types_and_sizes(button_types_and_sizes)
+    button_types_and_sizes.map! do |e|
+      (BUTTON_TYPES_AND_SIZES_MAP[e.to_sym] || e).to_s
+    end
   end
   
 end

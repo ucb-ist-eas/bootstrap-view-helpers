@@ -1,16 +1,17 @@
-<%= nav_list do %>
-  
-  <%= nav_list_header('Sidebar Header') %>
+<%= vertical_nav do %>
+  <%= nav_list do %>
+    
+    <%= nav_list_header('Sidebar Header') %>
 
-  <%= dropdown_item('Accordions', bvh_path('accordions')) %>
-  <%= dropdown_item('Alerts', bvh_path('alerts')) %>
-  <%= dropdown_item('Buttons', bvh_path('buttons')) %>
-  <%= dropdown_item('Icons', bvh_path('icons')) %>
-  <%= dropdown_item('Form helpers', bvh_path('form_helpers')) %>
-  <%= dropdown_item('Flash', bvh_path('flash_helper')) %>
-  <%= dropdown_item('Labels and badges', bvh_path('labels_and_badges')) %>
-  <%= dropdown_item('Modal Helpers', bvh_path('modal')) %>
-  <%= dropdown_item('Nav Helpers', bvh_path) %>
-  <%= dropdown_item('Table Helpers', bvh_path('tables')) %>
-  
+    <%= dropdown_item('Accordions', bvh_path('accordions')) %>
+    <%= dropdown_item('Alerts', bvh_path('alerts')) %>
+    <%= dropdown_item('Buttons', bvh_path('buttons')) %>
+    <%= dropdown_item('Icons', bvh_path('icons')) %>
+    <%= dropdown_item('Form helpers', bvh_path('form_helpers')) %>
+    <%= dropdown_item('Flash', bvh_path('flash_helper')) %>
+    <%= dropdown_item('Labels and badges', bvh_path('labels_and_badges')) %>
+    <%= dropdown_item('Modal Helpers', bvh_path('modal')) %>
+    <%= dropdown_item('Nav Helpers', bvh_path) %>
+    <%= dropdown_item('Table Helpers', bvh_path('tables')) %>
+  <% end %>
 <% end %>

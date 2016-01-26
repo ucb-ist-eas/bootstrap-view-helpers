@@ -16,11 +16,15 @@ module Bootstrap::ModalHelper
   def modal(options={})
     options = canonicalize_options(options)
     options.has_key?(:id) or raise(ArgumentError, "missing :id option")
-    options = ensure_class(options, %w(modal hide fade))
+    options = ensure_class(options, %w(modal fade))
     options.merge!(tabindex: "-1", role: "dialog")
     
     content_tag(:div, options) do
-      yield
+      content_tag(:div, class: "modal-dialog") do 
+        content_tag(:div, class: "modal-content") do 
+          yield
+        end
+      end
     end
   end
   
@@ -34,7 +38,7 @@ module Bootstrap::ModalHelper
   
     content_tag(:div, options) do
       modal_header_close_button(show_close) +
-      content_tag(:h3) do
+      content_tag(:h4, class: "modal-title") do
         content
       end
     end
@@ -73,7 +77,9 @@ module Bootstrap::ModalHelper
   # Returns a Bootstrap modal close button
   def modal_header_close_button(show=true)
     return ''.html_safe unless show
-    button("&times;".html_safe, type: 'button', class: 'close modal-close modal-header-close', data: {dismiss: 'modal'})
+    button(type: 'button', class: 'close', data: {dismiss: 'modal'}) do
+      content_tag(:span, "&times;".html_safe)
+    end
   end
 
   # Returns a close button for Bootstrap modal footer.

@@ -26,7 +26,7 @@ module Bootstrap::AccordionHelper
     options = canonicalize_options(options)
     options = ensure_accordion_id(options)
     @accordion_id = options[:id]
-    options = ensure_class(options, 'accordion')
+    options = ensure_class(options, 'panel-group')
     
     content_tag(:div, options) do
       yield
@@ -47,7 +47,7 @@ module Bootstrap::AccordionHelper
     # options = ensure_accordion_group_id(options)
     @accordion_group_id = get_next_group_id
 
-    options = ensure_class(options, 'accordion-group')
+    options = ensure_class(options, 'panel panel-default')
     
     content_tag(:div, options) do
       accordion_group_heading(text) + accordion_group_body(open) { yield }
@@ -57,17 +57,19 @@ module Bootstrap::AccordionHelper
   private
   
   def accordion_group_heading(text)
-    content_tag(:div, class: 'accordion-heading') do
-      content_tag(:a, text, class: %(accordion-toggle), href: "##{@accordion_group_id}", data: {toggle: 'collapse', parent: "##{@accordion_id}" })
+    content_tag(:div, class: 'panel-heading') do
+      content_tag(:h4, class: 'panel-title') do 
+        content_tag(:a, text, href: "##{@accordion_group_id}", data: {toggle: 'collapse', parent: "##{@accordion_id}" })
+      end
     end
   end
   
   def accordion_group_body(open)
-    classes = %w(accordion-body collapse)
+    classes = %w(panel-collapse collapse)
     classes << 'in' if open
     
     content_tag(:div, id: @accordion_group_id, class: classes) do
-      content_tag(:div, class: 'accordion-inner') do
+      content_tag(:div, class: 'panel-body') do
         yield
       end
     end

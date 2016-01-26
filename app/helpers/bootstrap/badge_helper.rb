@@ -14,8 +14,8 @@
 module Bootstrap::BadgeHelper
   InvalidBadgeTypeError = Class.new(StandardError)
   
-  BADGE_TYPES = %w(default success warning important info inverse)
-  
+  BADGE_TYPES = %w(default primary success info warning danger)
+
   # Returns html for a Bootstrap badge.
   #
   # @overload badge(text, options={})
@@ -40,7 +40,8 @@ module Bootstrap::BadgeHelper
   def add_badge_classes(*args)
     options = canonicalize_options(args.extract_options!)
     validate_badge_types(args)
-    classes = ['badge'] + args.map { |arg| "badge-#{arg}" }
+    classes = ['label', 'label-pill'] + args.map { |arg| "label-#{arg}" }
+    classes << 'label-default' if classes == ['label', 'label-pill']
     ensure_class(options, classes)
   end
   

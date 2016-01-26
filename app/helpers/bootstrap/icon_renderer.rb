@@ -34,7 +34,7 @@ class Bootstrap::IconRenderer
   
   def process_icon_type
     icon_type = args.shift.presence or raise(ArgumentError, "must pass an icon type")
-    icon_class = icon_type == 'blank' ? 'icon-search' : "icon-#{icon_type.gsub("_", "-")}"
+    icon_class = icon_type == 'blank' ? 'glyphicon glyphicon-search' : "glyphicon glyphicon-#{icon_type.gsub("_", "-")}"
     self.options = ensure_class(self.options, icon_class)
     
     if icon_type == 'blank'

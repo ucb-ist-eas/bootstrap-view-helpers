@@ -35,8 +35,8 @@ module Bootstrap::NavHelper
   # @yieldreturn the contents of the navigation bar
   # @return [String]
   def nav_bar()
-    content_tag(:header, class: 'navbar') do
-      content_tag(:nav, class: 'navbar-inner') do
+    content_tag(:nav, class: 'navbar navbar-default') do
+      content_tag(:div, class: 'container-fluid') do
         yield
       end
     end
@@ -52,7 +52,7 @@ module Bootstrap::NavHelper
   # @return [String] <a> if +:url+ option present, else <span>
   def brand(text, options = {})
     options = canonicalize_options(options)
-    options = ensure_class(options, 'brand')
+    options = ensure_class(options, 'navbar-brand')
 
     with_environment = options.delete(:with_environment)
     if with_environment && Rails.env != 'production'
@@ -65,31 +65,38 @@ module Bootstrap::NavHelper
     end
 
     url = options.delete(:url)
-    
-    if url.present?
-      link_to(text, url, options)
-    else
-      content_tag(:span, text, options)
+    content_tag(:div, class: "navbar-header") do 
+      if url.present?
+        link_to(text, url, options)
+      else
+        content_tag(:span, text, options)
+      end
     end
   end
   
   # Returns <div> for a group of nav bar links, <ul>s.
   #
+  def nav_bar_wrapper(options = {})
+    content_tag(:div, class: "navbar-collapse collapse sidebar-navbar-collapse") do
+      yield
+    end
+  end
+
   # Usually called in +yield+ block of {Bootstrap::NavHelper#nav_bar}
   #
   # @param options [Hash] options except for +:pull+ become html attributes of generated <div>
   # @option options [:left, :right] pull will add class of "pull-left|right" for Bootstrap nav bar positioning
   # @yield block usually consists of calls to {Bootstrap::NavHelper#nav_bar_link} and {Bootstrap::NavHelper#nav_bar_divider}
   # @return [String] <div class='nav'> containing results of yielded block
-  def nav_bar_links(options={})
+  def nav_bar_links(options = {})
     options = canonicalize_options(options)
-    options = ensure_class(options, 'nav')
+    options = ensure_class(options, 'nav navbar-nav')
     
     if pull = options.delete(:pull)
-      options = ensure_class(options, "pull-#{pull}")
+      options = ensure_class(options, "navbar-#{pull}")
     end
     
-    content_tag(:div, options) do
+    content_tag(:ul, options) do
       yield
     end
   end
@@ -107,8 +114,8 @@ module Bootstrap::NavHelper
     a_options = canonicalize_options(options)
     active = a_options.delete(:active)
     
-    li_options = {class: ('active' if active)}
-    
+    li_options = ensure_class({class: ('active' if active)}, "")
+
     content_tag(:li, li_options) do
       link_to(text, url, a_options)
     end
@@ -116,9 +123,9 @@ module Bootstrap::NavHelper
   
   # Returns divider (vertical bar) for separating items in a nav_bar
   #
-  # @return [String] <li class="divider-vertical"></li>
+  # @return [String] <li class="divider"></li>
   def nav_bar_divider
-    content_tag(:li, nil, class: "divider-vertical")
+    content_tag(:li, nil, class: "divider")
   end
   
   # Returns nav list
@@ -130,7 +137,7 @@ module Bootstrap::NavHelper
     options = canonicalize_options(options)
     options = ensure_class(options, 'well')
     content_tag(:div, options) do
-      content_tag(:ul, class: 'nav nav-list') do
+      content_tag(:ul, class: 'nav nav-stacked') do
         yield
       end
     end
@@ -141,7 +148,7 @@ module Bootstrap::NavHelper
   # @param text [String] text of header
   # @return [String] <li.nav-header>text</li>
   def nav_list_header(text)
-    content_tag(:li, text, class: 'nav-header')
+    content_tag(:li, text, class: '')
   end
   
   # Wraps _text_ so it has proper leading and color for text in a nav bar.  Usually
@@ -155,7 +162,7 @@ module Bootstrap::NavHelper
   # @option options [:left, :right] :pull (:left) adds the Boostrap positioning class
   # @option options [Boolean] :pad (true) include padding around text
   # @return [String]
-  def nav_bar_text(text, options={})
+  def nav_bar_text(text, options = {})
     options = canonicalize_options(options)
 
     unless options.delete(:pad) == false
@@ -167,5 +174,11 @@ module Bootstrap::NavHelper
     options = ensure_class(options, [pull_class, 'navbar-text'])
     
     content_tag(:p, text, options)
+  end
+
+  def vertical_nav(options = {})
+    content_tag(:div, class: "sidebar-nav") do 
+      yield
+    end
   end
 end
