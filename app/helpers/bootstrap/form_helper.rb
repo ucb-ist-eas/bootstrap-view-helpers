@@ -50,7 +50,8 @@ module Bootstrap::FormHelper
     options = ensure_class(options, 'form-actions')
     
     content_tag(:div, options) do
-      yield
+      concat content_tag(:div, "&nbsp;".html_safe, class: "col-md-3")
+      content_tag(:div, yield, class: "col-md-9")
     end
   end
   
