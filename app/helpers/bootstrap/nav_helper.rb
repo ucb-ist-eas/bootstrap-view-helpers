@@ -67,7 +67,7 @@ module Bootstrap::NavHelper
     url = options.delete(:url)
     content_tag(:div, class: "navbar-header") do 
       if url.present?
-        link_to(text, url, options)
+        link_to(text.html_safe, url, options)
       else
         content_tag(:span, text, options)
       end
